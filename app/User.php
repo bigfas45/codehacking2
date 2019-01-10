@@ -2,6 +2,7 @@
 
 namespace App;
 use  App\Role;
+use  App\Photo;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -29,5 +30,9 @@ class User extends Authenticatable
 
         return $this->belongsTo('App\Role');
 
+    }
+
+    public function photo(){
+        return $this->belongsTo('App\Photo');
     }
 }
