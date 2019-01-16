@@ -8,6 +8,7 @@ use App\Http\Requests;
 
 use App\Post;
 use App\Photo;
+use App\Category;
 use App\Http\Requests\PostCreateRequest;
 
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,8 @@ class AdminPostsController extends Controller
     public function create()
     {
         //
-        return view('admin.posts.create');
+        $categories = Category::lists('name','id')->all();
+        return view('admin.posts.create', compact('categories'));
     }
 
     /**
@@ -58,7 +60,7 @@ class AdminPostsController extends Controller
 
        if($file = $request->file('photo_id')){
           $name = time()  . $file->getClientOriginalName();
-          $file->move('images', $name);
+          $file->move('image', $name);
           $photo = Photo::create(['file'=>$name]);
 
           $input['photo_id']  = $photo->id;
