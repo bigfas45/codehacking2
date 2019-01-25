@@ -39,7 +39,7 @@ class AdminUsersController extends Controller
     public function create()
     {
         //
-        $roles = Role::lists('name', 'id')->all();
+        $roles = Role::pluck('name', 'id')->all();
 
         return view('admin.user.create', compact('roles'));
     }
@@ -106,7 +106,7 @@ class AdminUsersController extends Controller
 
         $user = User::findOrFail($id);
 
-        $roles = Role::lists('name', 'id')->all();
+        $roles = Role::pluck('name', 'id')->all();
 
         return view('admin.user.edit', compact('user','roles'));
     }
@@ -125,9 +125,9 @@ class AdminUsersController extends Controller
         $user = User::findOrfail($id);
 
 
-        if(trim($request->password == '')){
-            $input = $request->expect('password');
-        }else{
+        // if(trim($request->password == '')){
+        //     $input = $request->expect('password');
+        // }else{
 
 
             $input  = $request->all();
@@ -136,12 +136,12 @@ class AdminUsersController extends Controller
 
 
           
-        }
+        
 
 
 
 
-        $input = $request->all();
+        
 
         if ($file = $request->file('photo_id')){
             $name = time() . $file->getClientOriginalName();

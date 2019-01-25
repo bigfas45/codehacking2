@@ -1,12 +1,34 @@
 <?php
 
 namespace App;
-
+ 
+use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Model;
+use Cviebrock\EloquentSluggable\SluggableScopeHelpers;
+ 
 
-class Post extends Model
+
+
+class Post extends Model 
 {
     //
+
+    use Sluggable;
+    use SluggableScopeHelpers;
+ 
+    public function sluggable() {
+        return [
+            'slug' => [
+                'source' => 'title',
+                'onUpdate' => true
+            ],
+        ];
+    }
+    
+        
+
+
+
     protected $fillable = [
 
 
@@ -30,5 +52,9 @@ class Post extends Model
     
     public function category(){
         return $this->belongsTO('App\Category');
+    }
+
+    public function comments(){
+        return $this->hasMany('App\Comment');
     }
 }
